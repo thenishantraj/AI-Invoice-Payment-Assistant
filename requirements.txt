@@ -1,8 +1,0 @@
-streamlit
-google-generativeai
-pdfplumber
-PyPDF2
-pandas
-python-dotenv
-requests
-supabase
