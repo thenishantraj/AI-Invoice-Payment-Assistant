@@ -25,7 +25,7 @@ import google.generativeai as genai
 # CONFIG
 # =========================================================
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "invoices.db")
-MODEL_NAME = "gemini-2.5-flash"
+MODEL_NAME = "gemini-1.5-flash"
 
 st.set_page_config(
     page_title="AI Invoice & Payment Assistant",
@@ -154,8 +154,19 @@ def get_gemini_model(system_instruction: str) -> "genai.GenerativeModel":
     """Configure the google-generativeai SDK and return a ready-to-use GenerativeModel."""
     api_key = get_gemini_api_key()
     genai.configure(api_key=api_key)
+    
+    # Try models with explicit 'models/' prefix to avoid v1beta 404 errors
+    for m in ["models/gemini-1.5-flash", "gemini-1.5-flash", "models/gemini-1.5-pro"]:
+        try:
+            return genai.GenerativeModel(
+                model_name=m,
+                system_instruction=system_instruction,
+            )
+        except Exception:
+            continue
+
     return genai.GenerativeModel(
-        model_name=MODEL_NAME,
+        model_name="gemini-1.5-flash",
         system_instruction=system_instruction,
     )
 
