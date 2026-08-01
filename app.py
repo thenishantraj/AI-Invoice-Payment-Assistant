@@ -25,7 +25,7 @@ import google.generativeai as genai
 # CONFIG
 # =========================================================
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "invoices.db")
-MODEL_NAME = "gemini-1.5-flash-latest"
+MODEL_NAME = "gemini-2.5-flash"
 
 st.set_page_config(
     page_title="AI Invoice & Payment Assistant",
